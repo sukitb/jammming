@@ -1,9 +1,11 @@
-//import SearchBar.css
+import './SearchBar.css'
 
-const SearchBar = () => {
+export const SearchBar = () => {
   return (
-    <div>SearchBar</div>
+    <div className="SearchBar">
+      <input placeholder="Enter A Song, Album, or Artist" />
+      <button className="SearchButton">SEARCH</button>
+    </div>
   )
 }
 
-export default SearchBar

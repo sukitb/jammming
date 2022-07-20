@@ -1,9 +1,12 @@
-//import SearchResults.css
+import "./SearchResults.css"
+import { TrackList } from "../TrackList/TrackList"
 
-const SearchResults = () => {
+export const SearchResults = () => {
   return (
-    <div>SearchResults</div>
+    <div className="SearchResults">
+      <h2>Results</h2>
+      <TrackList />
+    </div>
   )
 }
 
-export default SearchResults

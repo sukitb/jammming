@@ -1,9 +1,13 @@
-//import Playlist.css
+import './Playlist.css'
+import { TrackList } from "../TrackList/TrackList"
 
-const Playlist = () => {
+export const Playlist = () => {
   return (
-    <div>Playlist</div>
+    <div className="Playlist">
+      <input value={'New Playlist'} />
+      <TrackList />
+      <button className="Playlist-save">SAVE TO SPOTIFY</button>
+    </div>
   )
 }
 
-export default Playlist
