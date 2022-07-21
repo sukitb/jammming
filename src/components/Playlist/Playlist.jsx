@@ -9,7 +9,7 @@ export const Playlist = (props) => {
 
   return (
     <div className="Playlist">
-      <input value={'New Playlist'} 
+      <input value={props.playlistName} 
       onChange={handleNameChange} />
       <TrackList tracks={props.playlistTracks} 
                  onRemove={props.onRemove} 

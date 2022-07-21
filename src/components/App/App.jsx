@@ -5,34 +5,26 @@ import "./App.css";
 import { SearchBar } from "../SearchBar/SearchBar";
 import { SearchResults } from "../SearchResults/SearchResults";
 import { Playlist } from "../Playlist/Playlist";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TrackList } from "../TrackList/TrackList";
-
-const searchResultsInit = [{
-  name: 'test1', artist: 'test1', album: 'test1', id: 'test1'
-},
-{
-  name: 'test2', artist: 'test2', album: 'test2', id: 'test2'
-}]
-
-const playlistNameInit = 'my playlist'
-
-const playlistTracksInit = [{
-  name: 'test3', artist: 'test3', album: 'test3', id: 'test3'
-}]
+import Spotify from "../../utils/Spotify";
 
 export const App = () => {
   //Hook useState
-  const [searchResults, setSearchResults] = useState(searchResultsInit)
-  const [playlistName, setPlaylistName] = useState(playlistNameInit)
-  const [playlistTracks, setPlaylistTracks] = useState(playlistTracksInit)
+  const [searchResults, setSearchResults] = useState([])
+  const [playlistName, setPlaylistName] = useState('')
+  const [playlistTracks, setPlaylistTracks] = useState([])
+
+  useEffect(() => {
+    Spotify.getAccessToken()
+  }, [])
 
   //add Track
   const addTrack = (track) => {
     if (playlistTracks.find(prev => prev.id === track.id)) {
       return;
-      // return alert(`Alert if prev's id is same as track's id`);
     }
+
     // Add new track to lasted
     setPlaylistTracks([...playlistTracks, track]);
   }
@@ -48,11 +40,17 @@ export const App = () => {
   }
 
   const savePlaylist = () => {
-    const trackURIs = playlistTracks.map()
+    const trackURIs = playlistTracks.map((track) => track.uri)
+    Spotify.savePlaylist(playlistName, trackURIs).then(() => {
+      setPlaylistName('New Playlist');
+      setPlaylistTracks([]);
+    })
   }
 
-  const seacrch = (term) => {
-    console.log(term)
+  const search = (term) => {
+    Spotify.search(term).then((tracks) => {
+      setSearchResults(tracks);
+    })
   }
 
   return (
@@ -61,7 +59,7 @@ export const App = () => {
         Ja<span className="highlight">mmm</span>ing
       </h1>
       <div className="App">
-        <SearchBar onSearch={seacrch} />
+        <SearchBar onSearch={search} />
         <div className="App-playlist">
           <SearchResults searchResults={searchResults}
             onAdd={addTrack} />
