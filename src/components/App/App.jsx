@@ -7,6 +7,7 @@ import { SearchResults } from "../SearchResults/SearchResults";
 import { Playlist } from "../Playlist/Playlist";
 import { useEffect, useState } from "react";
 import Spotify from "../../utils/Spotify";
+import blackpink from './blackpink.webm'
 
 export const App = () => {
   //Hook useState
@@ -48,7 +49,7 @@ export const App = () => {
     })
   }
 
-  
+
   const search = (term) => {
     Spotify.search(term).then((tracks) => {
       setSearchResults(tracks);
@@ -57,9 +58,12 @@ export const App = () => {
 
   return (
     <div>
+      <video autoPlay loop muted className="video-background" src={blackpink} >
+      </video>
       <h1>
         Ja<span className="highlight">mmm</span>ing
       </h1>
+
       <div className="App">
         <SearchBar onSearch={search} />
         <div className="App-playlist">
@@ -70,10 +74,10 @@ export const App = () => {
             onRemove={removeTrack}
             onNameChange={updatePlaylistName}
             onSave={savePlaylist} />
-
         </div>
       </div>
     </div>
+
   );
 };
 

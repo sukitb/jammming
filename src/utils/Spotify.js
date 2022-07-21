@@ -2,7 +2,10 @@
 
 const clientId = "409923c681544875b8579401fad6ca31";
 
-const redirectUri = "https://jammming-sukitb.surge.sh/";
+//Deploy uri
+// const redirectUri = "https://jammming-sukitb.surge.sh/";
+//Dev uri
+const redirectUri = "http://127.0.0.1:5174/";
 const spotifyUrl = `https://accounts.spotify.com/authorize?response_type=token&scope=playlist-modify-public&client_id=${clientId}&redirect_uri=${redirectUri}`;
 let accessToken = undefined;
 let expiresIn = undefined;
