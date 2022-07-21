@@ -6,7 +6,6 @@ import { SearchBar } from "../SearchBar/SearchBar";
 import { SearchResults } from "../SearchResults/SearchResults";
 import { Playlist } from "../Playlist/Playlist";
 import { useEffect, useState } from "react";
-import { TrackList } from "../TrackList/TrackList";
 import Spotify from "../../utils/Spotify";
 
 export const App = () => {
@@ -15,11 +14,12 @@ export const App = () => {
   const [playlistName, setPlaylistName] = useState('')
   const [playlistTracks, setPlaylistTracks] = useState([])
 
+  //Hook useEffect
   useEffect(() => {
     Spotify.getAccessToken()
   }, [])
 
-  //add Track
+  //Add Track
   const addTrack = (track) => {
     if (playlistTracks.find(prev => prev.id === track.id)) {
       return;
@@ -39,6 +39,7 @@ export const App = () => {
     setPlaylistName(name);
   }
 
+  //savePlaylist
   const savePlaylist = () => {
     const trackURIs = playlistTracks.map((track) => track.uri)
     Spotify.savePlaylist(playlistName, trackURIs).then(() => {
@@ -47,6 +48,7 @@ export const App = () => {
     })
   }
 
+  
   const search = (term) => {
     Spotify.search(term).then((tracks) => {
       setSearchResults(tracks);
